@@ -14,7 +14,7 @@
         android:targetSdkVersion="21"/>
 
     <application
-        android:label="HamDoze"
+        android:label="z1Doze"
         android:persistent="true">
 
         <receiver android:name="com.cyanogenmod.settings.device.BootCompletedReceiver">
@@ -24,8 +24,8 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.cyanogenmod.settings.device.HamDozeService"
-                 android:permission="HamDozeService">
+        <service android:name="com.cyanogenmod.settings.device.z1DozeService"
+                 android:permission="z1DozeService">
         </service>
 
         <activity

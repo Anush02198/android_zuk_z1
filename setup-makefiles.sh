@@ -18,7 +18,7 @@
 set -e
 
 # Required!
-DEVICE=ham
+DEVICE=z1
 VENDOR=zuk
 
 # Load extractutils and do some sanity checks

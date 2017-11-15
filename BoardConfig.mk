@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/zuk/ham
+DEVICE_PATH := device/zuk/z1
 
 # TODO: shouldn't be here
 BOARD_VENDOR := zuk
@@ -52,9 +52,6 @@ BOARD_KERNEL_CMDLINE := console=tty60,115200,n8 androidboot.hardware=qcom user_d
 TARGET_KERNEL_SOURCE := kernel/cyanogen/msm8974
 TARGET_KERNEL_CONFIG := radioactive_defconfig
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := ../../../../../../prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi-
-
-# Set buildtype official  
-NUCLEAR_BUILDTYPE := OFFICIAL
 
 # Enable DIAG on eng builds
 ifeq ($(TARGET_BUILD_VARIANT),eng)

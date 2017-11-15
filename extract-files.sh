@@ -19,7 +19,7 @@ set -e
 
 export INITIAL_COPYRIGHT_YEAR=2015
 
-DEVICE=ham
+DEVICE=z1
 VENDOR=zuk
 
 # Load extractutils and do some sanity checks
