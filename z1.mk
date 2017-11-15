@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,11 +15,15 @@
 #
 
 ifneq ($(QCPATH),)
-$(call inherit-product, $(QCPATH)/common/config/device-vendor.mk)
+$(call inherit-product-if-exists, $(QCPATH)/common/config/device-vendor.mk)
 endif
 
-# overlays
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay vendor/extra/overlays/phone-1080p
+# Firmware
+ADD_RADIO_FILES ?= true
+TARGET_RELEASETOOLS_EXTENSIONS := device/zuk/z1
+
+# Overlays
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
@@ -27,13 +31,12 @@ TARGET_SCREEN_WIDTH := 1080
 
 # Ramdisk
 PRODUCT_PACKAGES += \
-    init.qcom.bt.sh \
-    init.qcom-common.rc \
-    ueventd.qcom.rc \
     fstab.qcom \
-    init.qcom.rc \
     init.qcom.power.rc \
+    init.qcom.rc \
+    init.qcom-common.rc \
     init.qcom.usb.rc \
+    ueventd.qcom.rc \
     init.spectrum.rc \
     init.spectrum.sh \
     init.recovery.qcom.rc
@@ -56,58 +59,27 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
     $(LOCAL_PATH)/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml
 
-PRODUCT_PACKAGES += \
-    audiod \
-    audio.a2dp.default \
-    audio_amplifier.msm8974 \
-    audio_policy.msm8974 \
-    audio.primary.msm8974 \
-    audio.r_submix.default \
-    audio.usb.default \
-    libqcompostprocbundle \
-    libqcomvisualizer \
-    libqcomvoiceprocessing \
-    libtfa98xx \
-    tinymix
-
-PRODUCT_PROPERTY_OVERRIDES += \
-     use.dedicated.device.for.voip=true \
-     ro.config.vc_call_vol_steps=6 \
-     audio_hal.period_size=192 \
-     mm.enable.smoothstreaming=true \
-     ro.qc.sdk.audio.fluencetype=fluence \
-     persist.audio.fluence.voicecall=true \
-     audio.offload.buffer.size.kb=32 \
-     audio.deep_buffer.media=true \
-     audio.offload.video=true \
-     av.streaming.offload.enable=true \
-     audio.offload.multiple.enabled=false \
-     audio.offload.gapless.enabled=true \
-     tunnel.audio.encode=true \
-     media.aac_51_output_enabled=true \
-     audio.offload.pcm.16bit.enable=true \
-     audio.offload.pcm.24bit.enable=true
 
 # First api level, device has been commercially launched
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.first_api_level=22
 
+# Bluetooth
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.0-impl \
+    libbt-vendor
+
+# DRM HIDL interfaces
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0-impl
+
 # Camera
 PRODUCT_PACKAGES += \
-    camera.msm8974 \
-    Snap
+	Snap
 
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
-
-# Filesystem
-PRODUCT_PACKAGES += \
-    make_ext4fs \
-    setup_fs
-#Doze
-PRODUCT_PACKAGES += \
-    HamDoze
 
 # Fingerprint
 PRODUCT_PACKAGES += \
@@ -118,6 +90,7 @@ PRODUCT_PACKAGES += \
     copybit.msm8974 \
     gralloc.msm8974 \
     hwcomposer.msm8974 \
+    libgenlock \
     memtrack.msm8974 \
     liboverlay
 
@@ -126,22 +99,23 @@ PRODUCT_PACKAGES += \
     gps.msm8974
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/flp.conf:system/etc/flp.conf \
     $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
     $(LOCAL_PATH)/gps/izat.conf:system/etc/izat.conf \
     $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
     $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf
-#    $(LOCAL_PATH)/gps/flp.conf:system/etc/flp.conf \
+
+# HIDL
+$(call inherit-product, $(LOCAL_PATH)/hidl.mk)
+
+# HIDL manifest
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml
 
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8974
-    
-# Weather providers
-PRODUCT_PACKAGES += \
-     OpenWeatherMapProvider \
-     YahooWeatherProvider \
-     WundergroundWeatherProvider    
-    
+
 # IPC Security config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
@@ -170,53 +144,44 @@ PRODUCT_COPY_FILES += \
     libOmxVenc \
     libstagefrighthw \
     qcmediaplayer
-    
+
 # Power
 PRODUCT_PACKAGES += \
     power.msm8974
+
+# Telephony-ext
+PRODUCT_PACKAGES += \
+    telephony-ext
+
+PRODUCT_BOOT_JARS += \
+    telephony-ext
+
+# RenderScript HIDL interfaces
+PRODUCT_PACKAGES += \
+    android.hardware.renderscript@1.0-impl
+
+# Seccomp
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/seccomp/mediacodec-seccomp.policy:system/vendor/etc/seccomp_policy/mediacodec.policy \
+    $(LOCAL_PATH)/seccomp/mediaextractor-seccomp.policy:system/vendor/etc/seccomp_policy/mediaextractor.policy
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     $(LOCAL_PATH)/keylayout/qpnp_pon.kl:system/usr/keylayout/qpnp_pon.kl \
     $(LOCAL_PATH)/keylayout/Goodix-CTP.kl:system/usr/keylayout/Goodix-CTP.kl \
-    $(LOCAL_PATH)/keylayout/fpc1020tp.kl:system/usr/keylayout/fpc1020tp.kl
     $(LOCAL_PATH)/keylayout/msm8974-taiko-mtp-snd-card_Button_Jack.kl:system/usr/keylayout/msm8974-taiko-mtp-snd-card_Button_Jack.kl \
-# Keystore
-PRODUCT_PACKAGES += \
-    keystore.msm8974
+    $(LOCAL_PATH)/keylayout/fpc1020tp.kl:system/usr/keylayout/fpc1020tp.kl
 
 # Thermal
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine-8974.conf
 
-# USB
-PRODUCT_PACKAGES += \
-    com.android.future.usb.accessory
-
-# Data
-PRODUCT_PACKAGES += \
-    librmnetctl
-
 # WiFi
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)//wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
-    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/vendor/etc/wifi/WCNSS_qcom_cfg.ini \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
-
-PRODUCT_PACKAGES += \
-    libwpa_client \
-    hostapd \
-    wpa_supplicant \
-    wpa_supplicant.conf \
-    wpa_supplicant_overlay.conf \
-    p2p_supplicant_overlay.conf \
-    hostapd_default.conf \
-    hostapd.accept \
-    hostapd.deny
-
-PRODUCT_PACKAGES += \
-    wcnss_service
 
 # Misc dependencies
 PRODUCT_PACKAGES += \
@@ -227,41 +192,27 @@ PRODUCT_PACKAGES += \
     libbson \
     libcnefeatureconfig \
     libtinyxml \
-    libxml2
+    libxml2 \
+    libprotobuf-cpp-full
+
+# Memory
+PRODUCT_PACKAGES += \
+    libion \
+    android.hardware.memtrack@1.0-impl \
+    android.hardware.memtrack@1.0-service
+
+# ART
+PRODUCT_PACKAGES += \
+    libandroid_runtime_shim
 
 # ANT+
-PRODUCT_PACKAGES += \
-    AntHalService \
-    com.dsi.ant.antradio_library \
-    libantradio
-
-# Enable Bluetooth HFP
-PRODUCT_PROPERTY_OVERRIDES += \
-    bluetooth.hfp.client=1
-
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api=1
-
-# System properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.hwc.mdpcomp.enable=true \
-    persist.timed.enable=true \
-    ro.opengles.version=196608 \
-    ro.qualcomm.bt.hci_transport=smd \
-    ro.telephony.default_network=9 \
-    ro.use_data_netmgrd=true \
-    persist.data.netmgrd.qos.enable=true \
-    persist.data.tcpackprio.enable=true \
-    ro.data.large_tcp_window_size=true \
-    telephony.lteOnCdmaDevice=1 \
-    wifi.interface=wlan0 \
-    ro.qualcomm.perf.cores_online=2 \
-    ro.vendor.extension_library=libqti-perfd-client.so \
-    ro.telephony.call_ring.multiple=0
+#PRODUCT_PACKAGES += \
+#    AntHalService \
+#    com.dsi.ant.antradio_library \
+#    libantradio
 
 # Permissions
 PRODUCT_COPY_FILES += \
-    external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:system/etc/permissions/com.dsi.ant.antradio_library.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
@@ -285,18 +236,22 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml
 
+# Data
+PRODUCT_PACKAGES += \
+    librmnetctl
+
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 # call dalvik heap config
-$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-3072-dalvik-heap.mk)
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
 
 # call hwui memory config
-$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk)
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
 # call the proprietary setup
-$(call inherit-product-if-exists, vendor/zuk/ham/ham-vendor.mk)
+$(call inherit-product, vendor/zuk/ham/ham-vendor.mk)
 
 ifneq ($(QCPATH),)
 $(call inherit-product-if-exists, $(QCPATH)/prebuilt_HY11/target/product/msm8974/prebuilt.mk)
