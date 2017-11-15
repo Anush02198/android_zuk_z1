@@ -45,13 +45,17 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
+BOARD_KERNEL_IMAGE_NAME := zImage
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 BOARD_DTBTOOL_ARGS := -2
 TARGET_KERNEL_ARCH := arm
-BOARD_KERNEL_CMDLINE := console=tty60,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 vmalloc=480M
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom \
+			androidboot.bootdevice=msm_sdcc.1 \
+			ehci-hcd.park=3 \
+			androidboot.selinux=permissive
 TARGET_KERNEL_SOURCE := kernel/cyanogen/msm8974
 TARGET_KERNEL_CONFIG := radioactive_defconfig
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := ../../../../../../prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi-
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
 
 # Enable DIAG on eng builds
 ifeq ($(TARGET_BUILD_VARIANT),eng)
@@ -68,6 +72,9 @@ AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 AUDIO_FEATURE_ENABLED_HWDEP_CAL := true
 AUDIO_FEATURE_ENABLED_LOW_LATENCY_CAPTURE := true
 AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
+
+# Binder
+TARGET_USES_64_BIT_BINDER := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -91,24 +98,29 @@ TARGET_HAS_LEGACY_CAMERA_HAL1   := true
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
-# CM Hardware
-BOARD_USES_CYANOGEN_HARDWARE := true
+# Lineage Hardware
 BOARD_HARDWARE_CLASS := \
-    hardware/cyanogen/cmhw \
-    $(DEVICE_PATH)/cmhw
+    $(DEVICE_PATH)/lineagehw
 
 # Tap to wake
-TARGET_TAP_TO_WAKE_NODE := /sys/devices/virtual/touch/tp_dev/gesture_on
+TARGET_TAP_TO_WAKE_NODE := "/sys/class/touchscreen/device/gesture"
+
+# Encryption
+TARGET_HW_DISK_ENCRYPTION := true
 
 # Filesystem
-BOARD_BOOTIMAGE_PARTITION_SIZE     := 20971520
-BOARD_PERSISTIMAGE_PARTITION_SIZE  := 33554432
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 20971520
-BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 2147483648
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 12815659008
+BOARD_BOOTIMAGE_PARTITION_SIZE          := 20971520
+BOARD_PERSISTIMAGE_PARTITION_SIZE       := 33554432
+BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE     := ext4
+BOARD_RECOVERYIMAGE_PARTITION_SIZE      := 20971520
+BOARD_SYSTEMIMAGE_PARTITION_SIZE        := 2147483648
+BOARD_USERDATAIMAGE_PARTITION_SIZE      := 12815659008
 BOARD_USERDATAEXTRAIMAGE_PARTITION_SIZE := 59718467072
 BOARD_USERDATAEXTRAIMAGE_PARTITION_NAME := 64G
-BOARD_OEMIMAGE_PARTITION_SIZE      := 133169152
+BOARD_OEMIMAGE_FILE_SYSTEM_TYPE         := ext4
+BOARD_OEMIMAGE_PARTITION_SIZE           := 133169152
+
+TARGET_USERIMAGES_USE_EXT4 := true
 
 # Graphics
 USE_OPENGL_RENDERER := true
@@ -129,12 +141,15 @@ USE_DEVICE_SPECIFIC_LOC_API           := true
 # Legacy Blobs
 TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 
+# Keymaster
+TARGET_KEYMASTER_WAIT_FOR_QSEE := true
+
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
-# QCOM/CM HARDWARE
+# QCOM/Lineage HARDWARE
 BOARD_USES_QCOM_HARDWARE     := true
-BOARD_USES_CYANOGEN_HARDWARE := true
+BOARD_USES_Lineage_HARDWARE  := true
 
 
 # Shader cache config options
@@ -157,6 +172,9 @@ TARGET_NO_RPC := true
 # binaries. Decrease the size if RAM or Flash Storage size is a limitation
 # of the device.
 MAX_EGL_CACHE_SIZE := 2048*1024
+
+# USB
+TARGET_USES_LEGACY_ADB_INTERFACE := true
 
 # Wifi
 BOARD_HAS_QCOM_WLAN              := true
@@ -241,12 +259,5 @@ endif
 ifneq ($(QCPATH),)
 -include $(QCPATH)/common/msm8974/BoardConfigVendor.mk
 endif
-
-# SELinux policies
-# qcom sepolicy
-include device/qcom/sepolicy/sepolicy.mk
-
-BOARD_SEPOLICY_DIRS += \
-    $(DEVICE_PATH)/sepolicy
 
 -include vendor/zuk/ham/BoardConfigVendor.mk
