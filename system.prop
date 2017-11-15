@@ -76,9 +76,6 @@ ro.ril.em_redial_vt_failover=true
 persist.radio.custom_ecc=1
 persist.radio.multisim.config=dsds
 
-# SdcardFS
-ro.sys.sdcardfs=true
-
 # Sensors
 ro.qc.sdk.camera.facialproc=true
 ro.qc.sdk.gestures.camera=false
