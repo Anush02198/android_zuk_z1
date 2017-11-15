@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2016 The CyanogenMod Project
+# Copyright (C) 2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -108,9 +109,9 @@ PRODUCT_COPY_FILES += \
 # HIDL
 $(call inherit-product, $(LOCAL_PATH)/hidl.mk)
 
-# HIDL manifest
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml
+# HIDL
+DEVICE_MANIFEST_FILE := \
+    $(LOCAL_PATH)/manifest.xml
 
 # Lights
 PRODUCT_PACKAGES += \
@@ -160,11 +161,6 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
-# Seccomp
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/seccomp/mediacodec-seccomp.policy:system/vendor/etc/seccomp_policy/mediacodec.policy \
-    $(LOCAL_PATH)/seccomp/mediaextractor-seccomp.policy:system/vendor/etc/seccomp_policy/mediaextractor.policy
-
 # Keylayouts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
@@ -204,12 +200,6 @@ PRODUCT_PACKAGES += \
 # ART
 PRODUCT_PACKAGES += \
     libandroid_runtime_shim
-
-# ANT+
-#PRODUCT_PACKAGES += \
-#    AntHalService \
-#    com.dsi.ant.antradio_library \
-#    libantradio
 
 # Permissions
 PRODUCT_COPY_FILES += \
