@@ -48,6 +48,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     camera.device@1.0-impl \
+    libshim_camera_parameters \
     camera.msm8974 \
 
 # Graphics
