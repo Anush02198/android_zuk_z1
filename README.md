@@ -1,6 +1,6 @@
 Copyright 2017 - The LineageOS Project.
 
-Device Tree for Lenovo ZUK Z1 (ham)
+Device Tree for Lenovo ZUK Z1 (z1)
 ===========================================
 
 Basic   | Spec Sheet
