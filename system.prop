@@ -1,5 +1,5 @@
 #
-# system.prop for ham
+# system.prop for z1
 #
 # ADB
 ro.secure=0
@@ -11,6 +11,10 @@ ro.qualcomm.cabl=0
 # Camera
 camera2.portability.force_api=1
 persist.camera.4k2k.enable=1
+camera.cts.test=0
+media.stagefright.legacyencoder=true
+media.stagefright.less-secure=true
+persist.media.treble_omx=false
 
 # Display
 ro.sf.lcd_density=480
