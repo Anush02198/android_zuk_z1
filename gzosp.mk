@@ -16,7 +16,7 @@
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Inherit from ham device
+# Inherit from z1 device
 $(call inherit-product, device/zuk/z1/z1.mk)
 
 # Inherit from  gzosp stuff.
@@ -36,6 +36,4 @@ TARGET_VENDOR_PRODUCT_NAME := z1
 TARGET_VENDOR_DEVICE_NAME := Z1
 PRODUCT_BUILD_PROP_OVERRIDES += TARGET_DEVICE=Z1 PRODUCT_NAME=z1
 
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT="ZUK/ham/Z1:5.1.1/LMY49J/YOG4PAS9IG:user/release-keys" \
-    PRIVATE_BUILD_DESC="ham-user 5.1.1 LMY49J YOG4PAS9IG release-keys"
+TARGET_UNOFFICIAL_BUILD_ID := sriramprakhya
