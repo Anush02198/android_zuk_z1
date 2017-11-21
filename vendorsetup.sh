@@ -1,1 +1,1 @@
-add_lunch_combo gzosp_ham-userdebug
+add_lunch_combo gzosp_z1-userdebug
