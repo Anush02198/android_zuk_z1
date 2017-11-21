@@ -54,12 +54,12 @@ BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom \
 			ehci-hcd.park=3 \
 			androidboot.selinux=permissive
 TARGET_KERNEL_SOURCE := kernel/cyanogen/msm8974
-TARGET_KERNEL_CONFIG := radioactive_defconfig
+TARGET_KERNEL_CONFIG := lineageos_k9_defconfig
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
 
 # Enable DIAG on eng builds
 ifeq ($(TARGET_BUILD_VARIANT),eng)
-TARGET_KERNEL_ADDITIONAL_CONFIG:= cyanogenmod_debug_config
+TARGET_KERNEL_ADDITIONAL_CONFIG:= lineageos_debug_config
 endif
 
 # QCOM
