@@ -3915,7 +3915,7 @@ int32_t QCameraParameters::initDefaultParameters()
     set(KEY_QC_RAW_PICUTRE_SIZE, raw_size_str);
 
     //set default jpeg quality and thumbnail quality
-    set(KEY_JPEG_QUALITY, 95);
+    set(KEY_JPEG_QUALITY, 85);
     set(KEY_JPEG_THUMBNAIL_QUALITY, 85);
 
     // Set FPS ranges
@@ -3986,8 +3986,8 @@ int32_t QCameraParameters::initDefaultParameters()
     }
 
     // set focus position, we should get them from m_pCapability
-    m_pCapability->min_focus_pos[CAM_MANUAL_FOCUS_MODE_INDEX] = 0;
-    m_pCapability->max_focus_pos[CAM_MANUAL_FOCUS_MODE_INDEX] = 1023;
+    m_pCapability->min_focus_pos[CAM_MANUAL_FOCUS_MODE_INDEX] = 40;
+    m_pCapability->max_focus_pos[CAM_MANUAL_FOCUS_MODE_INDEX] = 60;
     set(KEY_QC_MIN_FOCUS_POS_INDEX, m_pCapability->min_focus_pos[CAM_MANUAL_FOCUS_MODE_INDEX]);
     set(KEY_QC_MAX_FOCUS_POS_INDEX, m_pCapability->max_focus_pos[CAM_MANUAL_FOCUS_MODE_INDEX]);
 
@@ -7377,7 +7377,7 @@ int QCameraParameters::getJpegQuality()
 {
     int quality = getInt(KEY_JPEG_QUALITY);
     if (quality < 0) {
-        quality = 95; // set to default quality value
+        quality = 85; // set to default quality value
     }
     return quality;
 }
