@@ -144,8 +144,8 @@
 /dev/msm_voicememo        0660   system     audio
 */
 /dev/radio0               0640   fm_radio   fm_radio
-/dev/smd3                 0660   bluetooth  net_bt_stack
-/dev/smd2                 0660   bluetooth  net_bt_stack
+/dev/smd3                 0660   bluetooth  bluetooth
+/dev/smd2                 0660   bluetooth  bluetooth
 /*
 /dev/ttyHSL1              0660   system     system
 /dev/mdm                  0660   system     radio
@@ -246,4 +246,4 @@
 /sys/devices/virtual/input/input* value 0660 system input
 
 # Factory reset protection
-/dev/block/bootdevice/by-name/frp 0600 system system
+/dev/block/platform/msm_sdcc.1/by-name/frp 0600 system system

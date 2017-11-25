@@ -33,6 +33,7 @@ TARGET_SCREEN_WIDTH := 1080
 
 # Ramdisk
 PRODUCT_PACKAGES += \
+    init.qcom.bt.sh \
     fstab.qcom \
     init.qcom.power.rc \
     init.qcom.rc \
