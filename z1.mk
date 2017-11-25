@@ -65,15 +65,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.first_api_level=22
 
-# Bluetooth
-PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-impl \
-    libbt-vendor
-
-# DRM HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.drm@1.0-impl
-
 # Camera
 PRODUCT_PACKAGES += \
 	Snap
@@ -126,6 +117,10 @@ DEVICE_MANIFEST_FILE := \
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8974
+
+# Widevine
+PRODUCT_PACKAGES += \
+    libshim_wvm
 
 # IPC Security config
 PRODUCT_COPY_FILES += \
