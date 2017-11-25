@@ -25,19 +25,36 @@
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
     android.hardware.audio.effect@2.0-impl \
-    android.hardware.audio@2.0-service \
-    android.hardware.soundtrigger@2.0-impl \
+    audiod \
     audio.a2dp.default \
     audio_amplifier.msm8974 \
+    audio_policy.msm8974 \
     audio.primary.msm8974 \
     audio.r_submix.default \
     audio.usb.default \
     libqcompostprocbundle \
     libqcomvisualizer \
-    libqcomvoiceprocessingdescriptors \
     libqcomvoiceprocessing \
     libtfa98xx \
-    libvolumelistener
+    tinymix
+
+PRODUCT_PROPERTY_OVERRIDES += \
+     use.dedicated.device.for.voip=true \
+     ro.config.vc_call_vol_steps=6 \
+     audio_hal.period_size=192 \
+     mm.enable.smoothstreaming=true \
+     ro.qc.sdk.audio.fluencetype=fluence \
+     persist.audio.fluence.voicecall=true \
+     audio.offload.buffer.size.kb=32 \
+     audio.deep_buffer.media=true \
+     audio.offload.video=true \
+     av.streaming.offload.enable=true \
+     audio.offload.multiple.enabled=false \
+     audio.offload.gapless.enabled=true \
+     tunnel.audio.encode=true \
+     media.aac_51_output_enabled=true \
+     audio.offload.pcm.16bit.enable=true \
+     audio.offload.pcm.24bit.enable=true
 
 # Bluetooth
 PRODUCT_PACKAGES += \
