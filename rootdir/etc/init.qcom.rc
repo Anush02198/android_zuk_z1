@@ -274,12 +274,6 @@ on fs
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
 
-    # HACK: In order to successfully read nv_hwid from NV
-    # during vendor_load_properties() we need to start adsp
-    # with rmt_storage service sooner
-    write /sys/kernel/boot_adsp/boot 1
-    start rmt_storage
-
     restorecon_recursive /persist
     mkdir /persist/data 0700 system system
 
