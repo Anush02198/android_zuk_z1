@@ -86,6 +86,11 @@ PRODUCT_PACKAGES += \
 # Fingerprint
 PRODUCT_PACKAGES += \
     fingerprint.msm8974
+ 
+# Display
+PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi
+PRODUCT_PROPERTY_OVERRIDES += debug.hwui.use_buffer_age=false
 
 # Graphics
 PRODUCT_PACKAGES += \
