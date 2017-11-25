@@ -83,7 +83,7 @@ camera_device_ops_t QCamera2HardwareInterface::mCameraOps = {
     send_command:               QCamera2HardwareInterface::send_command,
 
     release:                    QCamera2HardwareInterface::release,
-    dump:                       QCamera2HardwareInterface::dump,
+    .dump =                     QCamera2HardwareInterface::dump,
 };
 
 
