@@ -61,7 +61,7 @@ static hw_module_methods_t camera_module_methods = {
 };
 
 static hw_module_t camera_common  = {
-  .tag = HARDWARE_MODULE_TAG,
+  tag: HARDWARE_MODULE_TAG,
   version_major: 0,
   version_minor: 01,
   id: CAMERA_HARDWARE_MODULE_ID,
