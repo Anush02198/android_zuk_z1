@@ -84,7 +84,7 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    fingerprintd
+    fingerprint.msm8974
 
 # Graphics
 PRODUCT_PACKAGES += \
