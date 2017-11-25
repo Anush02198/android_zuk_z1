@@ -130,21 +130,18 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl
 
-# WiFi
+# wifi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
-    wificond \
-    dhcpcd.conf \
     libwpa_client \
     hostapd \
+    wificond \
     wpa_supplicant \
     wpa_supplicant.conf \
     wpa_supplicant_overlay.conf \
-    p2p_supplicant_overlay.conf \
-    hostapd_default.conf \
-    hostapd.accept \
-    hostapd.deny
+    p2p_supplicant_overlay.conf
 
+#wcnss
 PRODUCT_PACKAGES += \
     wcnss_service
 
