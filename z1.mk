@@ -110,6 +110,10 @@ PRODUCT_COPY_FILES += \
 # HIDL
 $(call inherit-product, $(LOCAL_PATH)/hidl.mk)
 
+# VNDK-SP:
+PRODUCT_PACKAGES += \
+   vndk-sp
+
 # HIDL
 DEVICE_MANIFEST_FILE := \
     $(LOCAL_PATH)/manifest.xml
