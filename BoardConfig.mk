@@ -257,9 +257,4 @@ ifeq ($(HOST_OS),linux)
   endif
 endif
 
-# inherit from the proprietary version
-ifneq ($(QCPATH),)
--include $(QCPATH)/common/msm8974/BoardConfigVendor.mk
-endif
-
--include vendor/zuk/ham/BoardConfigVendor.mk
+-include vendor/zuk/z1/BoardConfigVendor.mk
