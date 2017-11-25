@@ -1,0 +1,29 @@
+[
+  {
+    "repository": "leodiram/android_zuk_z1",
+    "target_path": "device/zuk/z1",
+    "branch": "oreo-n"
+  },
+  {
+    "repository": "leodiram/proprietary_vendor_zuk",
+    "target_path": "vendor/zuk",
+    "branch": "z1-o"
+  },
+  {
+    "repository": "BigTopKrazies/proprietary_vendor_qcom_binaries",
+    "target_path": "vendor/qcom/binaries",
+    "branch": "n7.1"
+  },
+  {
+    "repository": "android_device_qcom_common",
+    "target_path": "device/qcom/common"
+  {
+    "repository": "OrdenKrieger/android_kernel_cyanogen_msm8974",
+    "target_path": "kernel/cyanogen/msm8974",
+    "branch": "lineage-15.0"
+  },
+  {
+    "repository": "android_packages_resources_devicesettings",
+    "target_path": "packages/resources/devicesettings"
+  }
+]
