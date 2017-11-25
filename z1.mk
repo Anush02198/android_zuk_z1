@@ -98,7 +98,8 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm8974 \
     libgenlock \
     memtrack.msm8974 \
-    liboverlay
+    liboverlay \
+    libboringssl-compat
 
 # GPS
 PRODUCT_PACKAGES += \
